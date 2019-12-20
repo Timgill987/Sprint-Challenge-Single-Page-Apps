@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import CharacterCard from "./CharacterCard";
 
-export default function CharacterList() {
+export default function GetCharacterList() {
   // TODO: Add useState to track data from useEffect
-  const [Schwifty, setSchwifty] = useState();
+  const [Schwifty, setSchwifty] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`https://rick-api.herokuapp.com/api/`)
+      .get(`https://rickandmortyapi.com/api/character/`)
       .then(response => {
         console.log(response.data.results);
         setSchwifty(response.data.results);
@@ -22,15 +23,14 @@ export default function CharacterList() {
 
   return (
     <section>
-      {Schwifty.map(item => (
-        
-          <CharacterList
-            key={item}
-            name={item.name}
-            gender={item.gender}
-            species={item.species}
-          />
-        
+       {Schwifty.map(item => (
+
+         <CharacterCard
+           key={item}
+           name={item.name}
+           gender={item.gender}
+           species={item.species}
+         />
       ))}
     </section>
   );
